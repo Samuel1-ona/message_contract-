@@ -12,7 +12,20 @@
   },
   {
     "inputs": [],
-    "name": "GetMassage",
+    "name": "getMassage",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "message",
     "outputs": [
       {
         "internalType": "string",
@@ -31,22 +44,9 @@
         "type": "string"
       }
     ],
-    "name": "SetMessages",
+    "name": "setMessages",
     "outputs": [],
     "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "message",
-    "outputs": [
-      {
-        "internalType": "string",
-        "name": "",
-        "type": "string"
-      }
-    ],
-    "stateMutability": "view",
     "type": "function"
   }
 ]

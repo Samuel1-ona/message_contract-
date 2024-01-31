@@ -1,18 +1,19 @@
 import { useState } from "react";
 import { ethers } from "ethers";
-import contractABI from "./ABI.json";
+import contractABI from "./abi.json";
+import "./index.css";
 
 function App() {
-  const contractAddress = "0xd9909205a2C72A5760616D28Ce7c5cb8302e8243";
+  const contractAddress = "0x03aF3B8CF46ac99e00F7153ccB5Acdd17ddC4f54";
 
   async function requestAccount() {
     await window.ethereum.request({ method: "eth_requestAccounts" });
   }
 
-  const [inputMessage, setInputMessage] = useState(""); // Renamed state variable
-  const [getmsg, setGetmsg] = useState("display Here");
+  const [inputMessage, setInputMessage] = useState("");
+  const [contractMessage, setContractMessage] = useState("");
+
   async function sendMessageToContract() {
-    // Renamed function
     if (typeof window.ethereum !== "undefined") {
       await requestAccount();
       const provider = new ethers.BrowserProvider(window.ethereum);
@@ -24,10 +25,10 @@ function App() {
       );
 
       try {
-        const transaction = await contract.setMessage(inputMessage);
+        const transaction = await contract.setMessages(inputMessage);
         await transaction.wait();
-        console.log("msg sent");
-        setInputMessage(" ");
+        console.log("Message set successfully");
+        // getMessageFromContract(); // Retrieve updated message after setting
       } catch (err) {
         console.error("Error:", err);
       }
@@ -47,18 +48,14 @@ function App() {
       );
 
       try {
-        const transaction = await contract.getMessage();
-        setGetmsg(transaction);
+        const transaction = await contract.getMassage();
+        setContractMessage(transaction);
         console.log(transaction);
       } catch (err) {
         console.error("Error:", err);
       }
     }
   }
-
-  const handleMessageChange = (e) => {
-    setInputMessage(e.target.value);
-  };
 
   return (
     <div className="App">
@@ -67,13 +64,13 @@ function App() {
           type="text"
           placeholder="Enter your message"
           value={inputMessage}
-          onChange={handleMessageChange}
+          onChange={(e) => setInputMessage(e.target.value)}
         />
         <button onClick={sendMessageToContract}>Set Message</button>
-        <button onClick={getMessageToContract}>click</button>
       </div>
       <div>
-        <p>{getmsg}</p>
+        <button onClick={getMessageToContract}>Get Message</button>
+        <p>contractMessage: {contractMessage}</p>
       </div>
     </div>
   );
