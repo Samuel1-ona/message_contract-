@@ -12,13 +12,13 @@ contract  Messages {
         
     }
 
-    function SetMessages (string memory Newmessages) public {
+    function setMessages (string memory Newmessages) public {
 
         message = Newmessages;
     }
 
 
-    function GetMassage() public view returns (string memory){
+    function getMessage() public view returns (string memory){
 
         return message;
 
